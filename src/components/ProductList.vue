@@ -5,7 +5,10 @@
   <ul v-else>
     <li v-for="product in products">
       {{ product.title }} - {{ product.price | currency}} - {{ product.inventory }}
-      <button @click="addProductToCart(product)">Add to Cart</button>
+      <button
+        @click="addProductToCart(product)"
+        :disabled="!productIsInStock(product)"
+       >Add to Cart</button>
       </li>
   </ul>
 </div>
@@ -19,7 +22,10 @@ export default {
   },
   computed: {
     products () {
-      return this.$store.getters.availableProducts
+      return this.$store.state.products
+    },
+    productIsInStock () {
+      return this.$store.getters.productIsInStock
     }
   },
   methods: {
