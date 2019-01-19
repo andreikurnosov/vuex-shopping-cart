@@ -7,7 +7,7 @@
         {{ product.title }} - {{ product.price | currency }} - {{ product.quantity }}
       </li>
     </ul>
-    <p>Total: {{ cartTotal | currency }}</p>
+    <p>Total: {{ total | currency }}</p>
     <button @click="checkout">Checkout</button>
     <p v-if="checkoutStatus">{{ checkoutStatus }}</p>
   </div>
@@ -18,11 +18,11 @@ import {mapState, mapGetters, mapActions} from 'vuex'
 export default {
   computed: {
     ...mapState ({
-      checkoutStatus: 'checkoutStatus'
+        checkoutStatus: state => state.cart.checkoutStatus
       }),
     ...mapGetters ({
-      cartTotal: 'cartTotal',
-      products: 'cartProducts'
+      products: 'cartProducts',
+        total: 'cartTotal'
     })
   },
   methods: {
